@@ -1,7 +1,8 @@
 class TimersManager {
     constructor() {
         this.timers = {};
-        this.started = false
+        this.started = false,
+        this.logs = []
     }
 
     add(timer) {
@@ -22,8 +23,18 @@ class TimersManager {
                 throw new Error('Timer was added');
             }
             else {
+                const jobArg = [];
+
+                for (const key in arguments) {
+                    if (arguments.hasOwnProperty(key)) {
+                        if (key !== '0') {
+                            jobArg.push(arguments[key]);
+                        }
+                    }
+                }
+
                 this.timers[timer.name] = timer;
-                this.timers[timer.name].arguments = arguments;
+                this.timers[timer.name].arguments = jobArg;
             }
         }
         else {
@@ -67,37 +78,33 @@ class TimersManager {
         this.started = false;
     }
 
-    pause(payload) {
-        if (this.timers[payload]) {
-            this.stopTimer(this.timers[payload]);
-
-            this.timers[payload].remaining -= Date.now() - this.timers[payload].start;
-        }
-        else {
-            throw new Error('Timer is not defined');
-        }
+    _log(timer, result) {
+        this.logs.push({
+            name: timer.name,
+            in: timer.arguments,
+            out: result,
+            created: new Date(timer.start).toISOString()
+        });
     }
 
-    resume(payload) {
-        if (this.timers[payload]) {
-            const timer = this.timers[payload];
-
-            this.stopTimer(timer);
-            timer.start = Date.now();
-            this.startTimer(timer, 'resume');
-        }
-        else {
-            throw new Error('Timer is not defined');
-        }
+    print() {
+        return this.logs;
     }
 
     startTimer(timer, place) {
         const delay = place === 'start' ? timer.delay : timer.remaining;
 
         if (timer.interval) {
-            timer.timeout = setInterval(timer.job, timer.remaining, timer.arguments[1], timer.arguments[2]);
-        } else {
-            timer.timeout = setTimeout(timer.job, timer.remaining, timer.arguments[1], timer.arguments[2]);
+            timer.timeout = setInterval(() => {
+                const result = timer.job.apply(timer.job, timer.arguments);
+                this._log(timer, result);
+            }, timer.remaining);
+        }
+        else {
+            timer.timeout = setTimeout(() => {
+                const result = timer.job.apply(timer.job, timer.arguments);
+                this._log(timer, result);
+            }, timer.remaining);
         }
     }
 
@@ -126,16 +133,15 @@ const t2 = {
     name: 't2',
     delay: 1000,
     interval: false,
-    job: (a, b) => {
-        console.log(a + b);
-    }
+    job: (a, b) => a + b
 };
 
 manager.add(t1);
 manager.add(t2, 1, 2);
 manager.start();
-manager.stop();
-// manager.remove(t1);
-// console.log(1);
-// manager.pause('t1');
-manager.resume('t1');
+
+setTimeout(() => {
+    console.log(manager.print());
+}, 2000);
+
+module.exports = TimersManager;
