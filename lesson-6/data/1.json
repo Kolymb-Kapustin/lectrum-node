@@ -1,10 +1,22 @@
-{
-    "company": "HOPELI",
-    "email": "gail.key@hopeli.ca",
-    "phone": "+1 (942) 521-3005",
-    "address": "273 Meserole Street, 9853",
-    "about": "Occaecat elit et cillum non proident",
-    "registered": "Wednesday, April 11, 2018 6:27 AM",
-    "latitude": "27.759001",
-    "longitude": "-54.310808",
-}
+[
+    {
+        "company": "HOPELI",
+        "email": "gail.key@hopeli.ca",
+        "phone": "+1 (942) 521-3005",
+        "address": "273 Meserole Street, 9853",
+        "about": "Occaecat elit et cillum non proident",
+        "registered": "Wednesday, April 11, 2018 6:27 AM",
+        "latitude": "27.759001",
+        "longitude": "-54.310808"
+    },
+    {
+        "company": "HOPELI",
+        "email": "gail.key@hopeli.ca",
+        "phone": "+1 (942) 521-3005",
+        "address": "273 Meserole Street, 9853",
+        "about": "Occaecat elit et cillum non proident",
+        "registered": "Wednesday, April 11, 2018 6:27 AM",
+        "latitude": "27.759001",
+        "longitude": "-54.310808"
+    }
+]
