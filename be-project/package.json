@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "main": "index.js",
     "scripts": {
-        "start": "cross-env DEBUG=server:*,router:* nodemon",
+        "start": "cross-env PASSWORD=pass123 DEBUG=server:*,router:* nodemon",
         "start:prod": "cross-env NODE_ENV='production' PORT=3000 node -r @babel/register ./source/index.js",
         "build": "cross-env NODE_ENV=production node -r @babel/register './node_modules/.bin/webpack' --config=./webpack/webpack.config.js",
         "lint:eslint": "jest --projects 'jest/jest.eslint.config.json'"
