@@ -2,15 +2,13 @@
 import express from 'express';
 
 // Instruments
-import { get, post } from './route';
-import { isBase64 } from '../../utils';
+import { post } from './route';
 
 // Check payload
-import { get, post } from './checkBase64';
+import { isBase64 } from '../../utils';
 
 export const router = express.Router();
 
-router.get('/', get);
-router.post('/', [isBase64], post);
+router.post('/', isBase64, post);
 
-export { router as users };
+export { router as login };

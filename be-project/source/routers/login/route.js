@@ -1,26 +1,12 @@
 import dg from 'debug';
 
-const debug = dg('router:lessons');
-
-export const get = (req, res) => {
-    debug(`${req.method} - ${req.originalUrl}`);
-
-    try {
-        const data = [];
-
-        res.status(200).json({ data });
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-};
+const debug = dg('router:login');
 
 export const post = (req, res) => {
     debug(`${req.method} - ${req.originalUrl}`);
 
     try {
-        const data = {};
-
-        res.status(201).json({ data });
+        res.statusCode(204);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
