@@ -9,7 +9,10 @@ export const createUser = {
             type:   'string',
             format: 'email',
         },
+        password: {
+            type:   'string'
+        }
     },
-    required:             [ 'name', 'email' ],
+    required:             [ 'name', 'email', 'password'],
     additionalProperties: false,
 };
