@@ -9,7 +9,7 @@ export const post = (req, res) => {
         const [login, password] = Buffer.from(req.headers['x-authorization'], 'base64').toString().split(':');
         const { PASSWORD } = process.env;
 
-        if (!password || PASSWORD !== password) {
+        if (!password || !PASSWORD || PASSWORD !== password) {
             res.status(401).json({ message: "Password not correct" });
         }
 
